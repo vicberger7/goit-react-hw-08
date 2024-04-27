@@ -1,6 +1,7 @@
 .label {
-  margin: 0;
+  margin-bottom: 10px;
 }
 .input {
   width: 400px;
+  margin-bottom: 20px;
 }

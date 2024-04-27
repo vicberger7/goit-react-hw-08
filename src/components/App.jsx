@@ -28,6 +28,14 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
+          path="/contacts"
+          element={
+            <PrivateRoute>
+              <ContactsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/register"
           element={
             <RestrictedRoute>
@@ -41,14 +49,6 @@ export default function App() {
             <RestrictedRoute>
               <LoginPage />
             </RestrictedRoute>
-          }
-        />
-        <Route
-          path="/contacts"
-          element={
-            <PrivateRoute>
-              <ContactsPage />
-            </PrivateRoute>
           }
         />
       </Routes>
