@@ -6,6 +6,7 @@ import { RestrictedRoute } from "./RestrictedRoute";
 import { Layout } from "./Layout";
 import { refreshUser } from "../redux/auth/operations";
 import { selectIsRefreshing } from "../redux/auth/selectors";
+import { Toaster } from "react-hot-toast";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const ContactsPage = lazy(() => import("../pages/ContactsPage/ContactsPage"));
@@ -20,37 +21,42 @@ export default function App() {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return isRefreshing ? (
-    <span>Refreshing user...</span>
-  ) : (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/contacts"
-          element={
-            <PrivateRoute>
-              <ContactsPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <RestrictedRoute>
-              <RegisterPage />
-            </RestrictedRoute>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <RestrictedRoute>
-              <LoginPage />
-            </RestrictedRoute>
-          }
-        />
-      </Routes>
-    </Layout>
+  return (
+    <div>
+      <Toaster />
+      {isRefreshing ? (
+        <span>Refreshing user...</span>
+      ) : (
+        <Layout>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute>
+                  <ContactsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <RestrictedRoute>
+                  <RegisterPage />
+                </RestrictedRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <RestrictedRoute>
+                  <LoginPage />
+                </RestrictedRoute>
+              }
+            />
+          </Routes>
+        </Layout>
+      )}
+    </div>
   );
 }

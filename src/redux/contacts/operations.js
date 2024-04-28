@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../auth/operations";
+import { toast } from "react-hot-toast";
 
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
@@ -19,6 +20,7 @@ export const addContact = createAsyncThunk(
   async (contact, thunkAPI) => {
     try {
       const response = await instance.post(`/contacts`, contact);
+      toast.success("Contact added successfully!");
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -31,6 +33,7 @@ export const deleteContact = createAsyncThunk(
   async (contactId, thunkAPI) => {
     try {
       await instance.delete(`/contacts/${contactId}`);
+      toast.success("Contact deleted successfully!");
       return contactId;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
